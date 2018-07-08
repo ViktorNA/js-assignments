@@ -21,7 +21,7 @@
  */
 export function concatenateStrings(value1, value2) {
   /* implement your code here */
-  return value1 + value2;
+  return value1;
   throw new Error('Not implemented');
 }
 
