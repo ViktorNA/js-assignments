@@ -4,7 +4,7 @@
  * Plese read the following tutorial before implementing tasks:                             *
  * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String  *
  *                                                                                          *
- ********************************************************************************************/
+ ******************************************************************************************* */
 
 
 /**
@@ -19,7 +19,7 @@
  *   'aa',''    => 'aa'
  *   '',  'bb'  => 'bb'
  */
-export function concatenateStrings(value1, value2) {
+ export function concatenateStrings(value1, value2) {
   /* implement your code here */
   return value1+value2;
   throw new Error('Not implemented');
@@ -215,7 +215,7 @@ export function extractEmails(str) {
  */
 export function getRectangleString(width, height) {
   let str = '┌';
-  str+= new Array(width -1).join('-');
+  str+= new Array(width -1).join('─');
   str+='┐';
   str+='\n';
   for(let i = 2; i<height; i++){
@@ -225,7 +225,7 @@ export function getRectangleString(width, height) {
     str+='\n';
   }
   str+='└'
-  str+= new Array(width -1).join('-');
+  str+= new Array(width -1).join('─');
   str+='┘';
   return str;
   throw new Error('Not implemented');
