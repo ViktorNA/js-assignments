@@ -214,7 +214,7 @@ export function extractEmails(str) {
  *
  */
 export function getRectangleString(width, height) {
-  et str = '┌';
+  let str = '┌';
   str+= new Array(width -1).join('-');
   str+='┐';
   str+='\n';
