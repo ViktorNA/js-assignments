@@ -21,7 +21,7 @@
  */
 export function concatenateStrings(value1, value2) {
   /* implement your code here */
-  return value1;
+  return value1+value2;
   throw new Error('Not implemented');
 }
 
@@ -37,7 +37,7 @@ export function concatenateStrings(value1, value2) {
  *   ''      => 0
  */
 export function getStringLength(value) {
-  /* implement your code here */
+  return value.length;
   throw new Error('Not implemented');
 }
 
@@ -55,7 +55,7 @@ export function getStringLength(value) {
  *   'Chuck','Norris'  => 'Hello, Chuck Norris!'
  */
 export function getStringFromTemplate(firstName, lastName) {
-  /* implement your code here */
+  return `Hello, ${firstName} ${lastName}!`;
   throw new Error('Not implemented');
 }
 
@@ -70,7 +70,7 @@ export function getStringFromTemplate(firstName, lastName) {
  *   'Hello, Chuck Norris!' => 'Chuck Norris'
  */
 export function  extractNameFromTemplate(value) {
-  /* implement your code here */
+  return value.slice(7, -1);
   throw new Error('Not implemented');
 }
 
@@ -86,7 +86,7 @@ export function  extractNameFromTemplate(value) {
  *   'cat'       => 'c'
  */
 export function getFirstChar(value) {
-  /* implement your code here */
+  return value.slice(0,1);
   throw new Error('Not implemented');
 }
 
@@ -102,7 +102,7 @@ export function getFirstChar(value) {
  *   '\tHello, World! ' => 'Hello, World!'
  */
 export function removeLeadingAndTrailingWhitespaces(value) {
-  /* implement your code here */
+  return value.trim();
   throw new Error('Not implemented');
 }
 
@@ -118,7 +118,7 @@ export function removeLeadingAndTrailingWhitespaces(value) {
  *   'cat', 3 => 'catcatcat'
  */
 export function repeatString(value, count) {
-  /* implement your code here */
+  return new Array(count+1).join(value);
   throw new Error('Not implemented');
 }
 
@@ -135,7 +135,8 @@ export function repeatString(value, count) {
  *   'ABABAB','BA' => 'ABAB'
  */
 export function removeFirstOccurrences(str, value)  {
-  /* implement your code here */
+  let res = str.replace(value, '');
+  return res.replace(/\s+/g,' ');
   throw new Error('Not implemented');
 }
 
@@ -151,7 +152,9 @@ export function removeFirstOccurrences(str, value)  {
  *   '<a>' => 'a'
  */
 export function unbracketTag(str) {
-  /* implement your code here */
+  if(str[0]=='<'&&str[str.length-1]=='>')
+    return str.slice(1, str.length-1);
+  return str;
   throw new Error('Not implemented');
 }
 
@@ -167,7 +170,7 @@ export function unbracketTag(str) {
  *  'abcdefghijklmnopqrstuvwxyz' => 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
  */
 export function convertToUpperCase(str) {
-  /* implement your code here */
+  return str.toUpperCase();
   throw new Error('Not implemented');
 }
 
@@ -183,7 +186,7 @@ export function convertToUpperCase(str) {
  *   'info@gmail.com' => ['info@gmail.com']
  */
 export function extractEmails(str) {
-  /* implement your code here */
+  return str.split(';');
   throw new Error('Not implemented');
 }
 
@@ -211,7 +214,20 @@ export function extractEmails(str) {
  *
  */
 export function getRectangleString(width, height) {
-  /* implement your code here */
+  et str = '┌';
+  str+= new Array(width -1).join('-');
+  str+='┐';
+  str+='\n';
+  for(let i = 2; i<height; i++){
+    str+='|';
+    str+=new Array(width - 1).join(' ');
+    str+='|';
+    str+='\n';
+  }
+  str+='└'
+  str+= new Array(width -1).join('-');
+  str+='┘';
+  return str;
   throw new Error('Not implemented');
 }
 
@@ -233,7 +249,18 @@ export function getRectangleString(width, height) {
  *
  */
 export function encodeToRot13(str) {
-  /* implement your code here */
+  let ostr = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+  let estr = 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm';
+  let nstr = '';
+  for(let i = 0; i < str.length; i++){
+    let symbol = ostr.indexOf(str[i]);
+    if(symbol!=-1)
+      nstr += estr[symbol];
+
+    else
+      nstr += str[i]
+  }
+  return nstr;
   throw new Error('Not implemented');
 }
 
@@ -251,7 +278,9 @@ export function encodeToRot13(str) {
  *   isString(new String('test')) => true
  */
 export function isString(value) {
-  /* implement your code here */
+  if(typeof value === 'string')
+    return true;
+  return false;
   throw new Error('Not implemented');
 }
 
@@ -281,6 +310,10 @@ export function isString(value) {
  *   'K♠' => 51
  */
 export function getCardId(value) {
-  /* implement your code here */
+  let arr = ['A♣','2♣','3♣','4♣','5♣','6♣','7♣','8♣','9♣','10♣','J♣','Q♣','K♣',
+             'A♦','2♦','3♦','4♦','5♦','6♦','7♦','8♦','9♦','10♦','J♦','Q♦','K♦',
+             'A♥','2♥','3♥','4♥','5♥','6♥','7♥','8♥','9♥','10♥','J♥','Q♥','K♥',
+             'A♠','2♠','3♠','4♠','5♠','6♠','7♠','8♠','9♠','10♠','J♠','Q♠','K♠']
+  return arr.indexOf(value);
   throw new Error('Not implemented');
 }
