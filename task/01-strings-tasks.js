@@ -219,9 +219,9 @@ export function getRectangleString(width, height) {
   str+='┐';
   str+='\n';
   for(let i = 2; i<height; i++){
-    str+='|';
+    str+='│';
     str+=new Array(width - 1).join(' ');
-    str+='|';
+    str+='│';
     str+='\n';
   }
   str+='└'
