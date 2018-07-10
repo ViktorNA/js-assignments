@@ -110,7 +110,7 @@ export function timeSpanToString(startDate, endDate) {
  */
 export function angleBetweenClockHands(date) {
   let minutes = date.getMinutes() + date.getSeconds()/60 + date.getMilliseconds()/60000;
-  let hours = date.getHours()%12 + minutes/60 - 3;
+  let hours = date.getHours()%12 + minutes/60 ;
   return (hours>minutes?(hours - minutes/5):(minutes/5 - hours)) / 6 * Math.PI;
 
 
