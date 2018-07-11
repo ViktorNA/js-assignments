@@ -22,8 +22,7 @@
  *    [0, 1, 2, 3, 4, 5], 5    => 5
  */
 export function findElement(arr, value) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+  return arr.indexOf(value);
 }
 
 /**
@@ -38,8 +37,8 @@ export function findElement(arr, value) {
  *    5 => [ 1, 3, 5, 7, 9 ]
  */
 export function generateOdds(len) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+  let i=1;
+  return new Array(len).join(i+=2);
 }
 
 
@@ -56,8 +55,7 @@ export function generateOdds(len) {
  *    [] => []
  */
 export function doubleArray(arr) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+  return arr.concat(arr);
 }
 
 

@@ -109,11 +109,12 @@ export function timeSpanToString(startDate, endDate) {
  *    Date.UTC(2016,3,5,21, 0) => Math.PI/2
  */
 export function angleBetweenClockHands(date) {
-  let minutes = date.getMinutes() + date.getSeconds()/60 + date.getMilliseconds()/60000;
-  let hours = date.getHours()%12 + minutes/60 ;
-  let angle = (minutes/5 - hours) / 6 * Math.PI;
-  angle = Math.abs(angle);
-  return angle>=Math.PI?2*Math.PI-angle:angle;
+  // let minutes = date.getMinutes() + date.getSeconds()/60 + date.getMilliseconds()/60000;
+  // let hours = date.getHours()%12 + minutes/60 ;
+  // let angle = (minutes/5 - hours) / 6 * Math.PI;
+  // angle = Math.abs(angle);
+  // return angle>=Math.PI?2*Math.PI-angle:angle;
+  return Math.abs(0.5*(60*date.getHours()%12 - 11*date.getMinutes()));
 
 
 }
