@@ -119,7 +119,8 @@ export function angleBetweenClockHands(date) {
   let hours = date.getHours()%12 ;
   let minutes = date.getMinutes();
   let angle = 0.5*(60*hours-11*minutes)*Math.PI/180;
-  return Math.abs(angle);
+  angle = Math.abs(angle);
+  return angle<=Math.PI?angle:2*Math.PI-angle;
 
 
 }
