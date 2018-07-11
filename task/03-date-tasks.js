@@ -114,7 +114,12 @@ export function angleBetweenClockHands(date) {
   // let angle = (minutes/5 - hours) / 6 * Math.PI;
   // angle = Math.abs(angle);
   // return angle>=Math.PI?2*Math.PI-angle:angle;
-  return Math.abs(0.5*(60*date.getHours()%12 - 11*date.getMinutes()))*Math.PI/180;
+   
+  // return Math.abs(0.5*(60*(date.getHours()+3)%12 - 11*date.getMinutes()))*Math.PI/180;
+  let hours = date.getHours()%12 ;
+  let minutes = date.getMinutes();
+  let angle = 0.5*(60*hours-11*minutes)*Math.PI/180;
+  return Math.abs(angle);
 
 
 }
