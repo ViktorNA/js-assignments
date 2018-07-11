@@ -37,8 +37,8 @@ export function findElement(arr, value) {
  *    5 => [ 1, 3, 5, 7, 9 ]
  */
 export function generateOdds(len) {
-  let i=1;
-  return new Array(len).join(i+=2);
+  /* implement your code here */
+  throw new Error('Not implemented');
 }
 
 
