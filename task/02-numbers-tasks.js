@@ -72,8 +72,7 @@ export function getAverage(value1, value2) {
  *   (-5,0) (10,-10) => 18.027756377319946
  */
 export function getDistanceBetweenPoints(x1, y1, x2, y2) {
-  let d = (x2-x1)*(x2-x1) + (y2- y1)*(y2-y1);
-  return Math.pow(d, 0.5);
+  return Math.hypot(x2-x1, y2-y1);
 }
 
 /**
@@ -112,9 +111,7 @@ export function getLinearEquationRoot(a, b) {
  *   (0,1) (1,2)     => 0
  */
 export function getAngleBetweenVectors(x1, y1, x2, y2) {
-  let vector = x1*x2 + y1*y2;
-  let scalar = Math.pow((x1*x1+y1*y1)*(x2*x2+y2*y2), 0.5);
-  return Math.acos(vector/scalar);
+  return Math.abs(Math.atan2(y1, x1) - Math.atan2(y2, x2));
 }
 
 /**
@@ -130,8 +127,7 @@ export function getAngleBetweenVectors(x1, y1, x2, y2) {
  *     0     => 0
  */
 export function getLastDigit(value) {
-  let str = String(value);
-  return Number(str[str.length-1]);
+  return value%10;
 }
 
 
@@ -164,7 +160,7 @@ export function parseNumberFromString(value) {
  *   1,2,3   => 3.741657386773941
  */
 export function getParallelipidedDiagonal(a, b, c) {
-  return Math.pow(a*a + b*b + c*c, 0.5);
+  return Math.hypot(a, b, c);
 }
 
 /**
@@ -230,5 +226,5 @@ export function isPrime(n) {
  *   toNumber(new Number(42), 0) => 42
  */
 export function toNumber(value, def) {
-  return Number(value)?Number(value):def;
+  return Number(value)||def;
 }

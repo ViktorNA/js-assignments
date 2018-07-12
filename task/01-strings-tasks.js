@@ -82,7 +82,7 @@ export function  extractNameFromTemplate(value) {
  *   'cat'       => 'c'
  */
 export function getFirstChar(value) {
-  return value.slice(0, 1);
+  return value.charAt(0);
 }
 
 /**
@@ -112,7 +112,7 @@ export function removeLeadingAndTrailingWhitespaces(value) {
  *   'cat', 3 => 'catcatcat'
  */
 export function repeatString(value, count) {
-  return new Array(count+1).join(value);
+  return value.repeat(count);
 }
 
 /**
@@ -128,8 +128,7 @@ export function repeatString(value, count) {
  *   'ABABAB','BA' => 'ABAB'
  */
 export function removeFirstOccurrences(str, value)  {
-  let res = str.replace(value, '');
-  return res.replace(/\s+/g, ' ');
+  return str.replace(value, '');
 }
 
 /**
@@ -144,10 +143,7 @@ export function removeFirstOccurrences(str, value)  {
  *   '<a>' => 'a'
  */
 export function unbracketTag(str) {
-  if(str[0]==='<'&&str[str.length-1]==='>'){
-    return str.slice(1, str.length-1);
-  }
-  return str;
+  return str.slice(1, str.length-1);
 }
 
 
@@ -205,17 +201,17 @@ export function extractEmails(str) {
  */
 export function getRectangleString(width, height) {
   let str = '┌';
-  str+= new Array(width -1).join('─');
+  str+= '─'.repeat(width-2);
   str+='┐';
   str+='\n';
   for(let i = 2; i<height; i++){
     str+='│';
-    str+=new Array(width - 1).join(' ');
+    str+= ' '.repeat(width-2);
     str+='│';
     str+='\n';
   }
   str+='└';
-  str+= new Array(width -1).join('─');
+  str+= '─'.repeat(width-2);
   str+='┘';
   str+='\n';
   return str;
