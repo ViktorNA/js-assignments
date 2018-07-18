@@ -56,10 +56,7 @@ export function parseDataFromIso8601(value) {
  */
 export function isLeapYear(date) {
   let year = date.getFullYear();
-  if((year % 400 === 0)||(year % 4 === 0 && year % 100 !== 0)){
-    return true;
-  }
-  return false;
+  return year % 400 === 0||year % 4 === 0 && year % 100 !== 0;
 }
 
 
@@ -79,18 +76,7 @@ export function isLeapYear(date) {
  *    Date(2000,1,1,10,0,0),  Date(2000,1,1,15,20,10,453)   => "05:20:10.453"
  */
 export function timeSpanToString(startDate, endDate) {
-  let count = endDate - startDate;
-  function d(val){
-    return val<10?'0'+val:val;
-  }
-  let str = d(Math.floor(count / 3600000));
-  str += ':';
-  count = count % 3600000;
-  str += d(Math.floor(count / 60000));
-  count %= 60000;
-  str += ':';
-  str += d((count / 1000).toFixed(3));
-  return str;
+  return (new Date(endDate - startDate)).toISOString().match(/(\d\d:\d\d:\d\d\.\d\d\d)/)[0];
 }
 
 

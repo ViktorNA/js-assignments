@@ -37,7 +37,7 @@ export function findElement(arr, value) {
  *    5 => [ 1, 3, 5, 7, 9 ]
  */
 export function generateOdds(len) {
-  return Array.from(new Array(len), (v, i) => i*2+1);   
+  return Array.from({length: len}, (v, i) => i*2+1);   
 }
 
 
@@ -176,7 +176,7 @@ export function getHead(arr, n) {
  *    [ 'a', 'b', 'c', 'd'], 3  => [ 'b', 'c', 'd' ]
  */
 export function getTail(arr, n) {
-  return arr.slice(arr.length - n);
+  return arr.slice(- n);
 }
 
 
@@ -236,7 +236,7 @@ export function toArrayOfSquares(arr) {
  */
 export function getMovingSum(arr) {
   let sum = 0;
-  return Array.from(arr, x => sum+=x);
+  return arr.map(x => sum+=x);
 }
 
 /**
@@ -270,8 +270,7 @@ export function getSecondItems(arr) {
  *  [ 1,2,3,4,5 ] => [ 1, 2,2, 3,3,3, 4,4,4,4, 5,5,5,5,5 ]
  */
 export function propagateItemsByPositionIndex(arr) {
-  let narr = arr.map((x, i) => new Array(i+1).fill(x));
-  return [].concat(...narr);
+  return arr.reduce((a, x, i) => a.concat(new Array(i+1).fill(x)), []);
 }
 
 
@@ -324,22 +323,19 @@ export function getPositivesCount(arr) {
  *   [ 'one','one','one','zero' ]     => [ 'zero','one','one','one' ]
  */
 export function sortDigitNamesByNumericOrder(arr) {
-  function convert(x){
-    switch(x){
-    case 'one': return 1;
-    case 'two': return 2;
-    case 'three': return 3;
-    case 'four': return 4;
-    case 'five': return 5;
-    case 'six': return 6;
-    case 'seven': return 7;
-    case 'eight': return 8;
-    case 'nine': return 9;
-    case 'zero': return 0;
-    }
-  }
-
-  return arr.sort( (a, b) => convert(a) - convert(b));
+  const digits = {
+    zero: 0,
+    one: 1,
+    two: 2,
+    three: 3,
+    four: 4,
+    five: 5,
+    six: 6,
+    seven: 7,
+    eight: 8,
+    nine: 9
+  };
+  return arr.sort( (a, b) => digits[a] - digits[b]);
 }
 
 /**
@@ -371,7 +367,7 @@ export function getItemsSum(arr) {
  *  [ null, undefined, NaN, false, 0, '' ]  => 6
  */
 export function getFalsyValuesCount(arr) {
-  return arr.filter(x => !x).length;
+  return arr.reduce( (a, x) => x?a:a+1, 0);
 }
 
 /**
@@ -389,7 +385,8 @@ export function getFalsyValuesCount(arr) {
  *    [ true, 0, 1, 'true' ], true => 1
  */
 export function findAllOccurences(arr, item) {
-  return arr.filter(x => x===item).length;
+  // return arr.filter(x => x===item).length;
+  return arr.reduce( (a, x) => (x===item) + a, 0);
 }
 
 /**
@@ -404,7 +401,7 @@ export function findAllOccurences(arr, item) {
  *    ['rock', 'paper', 'scissors']     => 'rock,paper,scissors'
  */
 export function toStringList(arr) {
-  return arr.join(',');
+  return arr.toString();
 }
 
 
@@ -451,6 +448,7 @@ export function sortCitiesArray(arr) {
   }
 
   return arr.sort(sort);
+  // return arr.sort( (a, b) => (a.country>b.country||a.city>b.city)?1:-1);
 }
 
 /**
@@ -543,9 +541,20 @@ export function distinct(arr) {
  */
 export function group(array, keySelector, valueSelector) {
   let map = new Map();
-  array.map(x => {
-    map.set(keySelector(x), [].concat(map.get(keySelector(x))||[], valueSelector(x)));
-    return x;
+  // array.map(x => {
+  //   map.set(keySelector(x), [].concat(map.get(keySelector(x))||[], valueSelector(x)));
+  //   return x;
+  // });
+
+  array.map((el, ind) => {
+    let key = keySelector(el);
+    let value = valueSelector(el);
+    if(map.has(key)){
+      map.get(key).push(value);
+    }
+    else{
+      map.set(key, [value]);
+    }
   });
   return map;
 }
@@ -565,8 +574,10 @@ export function group(array, keySelector, valueSelector) {
  *   ['one','two','three'], x=>x.split('')  =>   ['o','n','e','t','w','o','t','h','r','e','e']
  */
 export function selectMany(arr, childrenSelector) {
-  let a = arr.map( x => childrenSelector(x));
-  return [].concat(...a);
+  // let a = arr.map( x => childrenSelector(x));
+  // return [].concat(...a);
+
+  return arr.reduce( (a, x) => a.concat(childrenSelector(x)), []);
 }
 
 
@@ -583,9 +594,10 @@ export function selectMany(arr, childrenSelector) {
  *   [[[ 1, 2, 3]]], [ 0, 0, 1 ]      => 2        (arr[0][0][1])
  */
 export function getElementByIndexes(arr, indexes) {
-  let buf = arr;
-  indexes.map(x => buf=buf[x]);
-  return buf;
+  // let buf = arr;
+  // indexes.map(x => buf=buf[x]);
+  // return buf;
+  return indexes.reduce( (a, x) => a[x], arr);
 }
 
 
