@@ -30,8 +30,7 @@
  * @return {RegExp}
  */
 export function getRegexForGuid() {
-  /* implement your code here */
-  throw new Error('Not implemented');
+  return /[0-9a-f]{8}-([0-9a-f]{4}-){3}[0-9a-f]{12}/i;
 }
 
 
