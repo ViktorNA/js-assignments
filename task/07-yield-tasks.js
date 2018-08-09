@@ -32,7 +32,29 @@
  *
  */
 export function* get99BottlesOfBeer() {
-  throw new Error('Not implemented');
+  let bottles = 99;
+  let stage = 1;
+  let str = '';
+  while(true){
+    switch(bottles){
+    case 1: str = '1 bottle '; break;
+    case 0: str = 'no more bottles '; break;
+    case -1: bottles = 99; break;
+    default: str = bottles + ' bottles ';
+    }
+
+    if(stage===1){
+      stage = 2;
+      bottles--;
+      yield bottles===-1?'No more bottles of beer on the wall, no more bottles of beer.':
+        str + 'of beer on the wall, ' + str + 'of beer.';
+    }
+    else{
+      stage = 1;
+      yield bottles===99?'Go to the store and buy some more, 99 bottles of beer on the wall.':
+        'Take one down and pass it around, ' + str + 'of beer on the wall.';
+    }
+  }
 }
 
 
