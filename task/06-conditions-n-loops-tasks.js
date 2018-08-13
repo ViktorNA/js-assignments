@@ -297,7 +297,7 @@ export function reverseInteger(num) {
  *   4916123456789012 => false
  */
 export function isCreditCardNumber(ccn) {
-  let str = '' + ccn;
+  let str =ccn.toString();
   let sum = +str[str.length-1];
   for(let i = 0; i <  str.length - 1 ; i++){
     if(i%2===0){
@@ -460,6 +460,7 @@ export function timespanToHumanString(startDate, endDate) {
  *    365, 10 => '365'
  */
 export function toNaryString(num, n) {
+  // return num.toString(n);
   let res = [];
   while(num){
     res.unshift(num%n);

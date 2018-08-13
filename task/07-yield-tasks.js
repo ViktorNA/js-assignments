@@ -35,11 +35,12 @@ export function* get99BottlesOfBeer() {
   let bottles = 99;
   let stage = 1;
   let str = '';
-  while(true){
+  let loop = true;
+  while(loop){
     switch(bottles){
     case 1: str = '1 bottle '; break;
     case 0: str = 'no more bottles '; break;
-    case -1: bottles = 99; break;
+    case -1: loop = false; break;
     default: str = bottles + ' bottles ';
     }
 
@@ -51,7 +52,7 @@ export function* get99BottlesOfBeer() {
     }
     else{
       stage = 1;
-      yield bottles===99?'Go to the store and buy some more, 99 bottles of beer on the wall.':
+      yield bottles===-1?'Go to the store and buy some more, 99 bottles of beer on the wall.':
         'Take one down and pass it around, ' + str + 'of beer on the wall.';
     }
   }
@@ -68,7 +69,14 @@ export function* get99BottlesOfBeer() {
  *
  */
 export function* getFibonacciSequence() {
-  throw new Error('Not implemented');
+  let numb1 = 0;
+  let numb2 = 1;
+  while(true){
+    let fib = numb1;
+    numb1 = numb2;
+    numb2 += fib;
+    yield fib;
+  }
 }
 
 
@@ -103,7 +111,19 @@ export function* getFibonacciSequence() {
  *
  */
 export function* depthTraversalTree(root) {
-  throw new Error('Not implemented');
+  let nodes = [];
+  function recTree(treeNode){
+    nodes.push(treeNode);
+    if(treeNode.children){
+      for(let i = 0; i < treeNode.children.length; i++){
+        recTree(treeNode.children[i]);
+      }
+    }
+  }
+  recTree(root);
+  for(let i = 0; i < nodes.length; i++){
+    yield nodes[i];
+  }
 }
 
 
