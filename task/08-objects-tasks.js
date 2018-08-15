@@ -59,10 +59,7 @@ export function getJSON(obj) {
 export function fromJSON(proto, json) {
   // let obj2 = JSON.parse(json);
   // let obj1 = new proto.constructor();
-  // for (let key in obj2){
-  //   obj1[key]=obj2[key];
-  // }
-  // return obj1;
+  // return Object.assign(obj1, obj2);
   throw new Error('Not implemented');
 }
 
@@ -123,39 +120,69 @@ export function fromJSON(proto, json) {
  */
 
 export const cssSelectorBuilder = {
+  str: '',
+  crutchForElement: false,
 
   element(value) {
-    /* implement your code here */
-    throw new Error('Not implemented');
+    if(this.crutchForElement){
+      throw new Error('Element, id and pseudo-element should not occur more then one time inside the selector');
+    }
+    this.crutchForElement = true;
+    this.str+=value;
+    let obj = Object.assign({}, this);
+    this.str = '';
+    return obj;
   },
 
   id(value) {
-    /* implement your code here */
-    throw new Error('Not implemented');
+    if(this.str.indexOf('#')>=0){
+      throw new Error('Element, id and pseudo-element should not occur more then one time inside the selector');
+    }
+    this.str+='#' + value;
+    let obj = Object.assign({}, this);
+    this.str = '';
+    return obj;
   },
 
   class(value) {
-    /* implement your code here */
-    throw new Error('Not implemented');
+    this.str+='.' + value;
+    let obj = Object.assign({}, this);
+    this.str = '';
+    return obj;
   },
 
   attr(value) {
-    /* implement your code here */
-    throw new Error('Not implemented');
+    this.str+='[' + value + ']';
+    let obj = Object.assign({}, this);
+    this.str = '';
+    return obj;
   },
 
   pseudoClass(value) {
-    /* implement your code here */
-    throw new Error('Not implemented');
+    this.str+=':' + value;
+    let obj = Object.assign({}, this);
+    this.str = '';
+    return obj;
   },
 
   pseudoElement(value) {
-    /* implement your code here */
-    throw new Error('Not implemented');
+    if(this.str.indexOf('::')>=0){
+      throw new Error('Element, id and pseudo-element should not occur more then one time inside the selector');
+    }
+    this.str+='::' + value;
+    let obj = Object.assign({}, this);
+    this.str = '';
+    return obj;
   },
 
   combine(selector1, combinator, selector2) {
-    /* implement your code here */
-    throw new Error('Not implemented');
+    selector1.str += ' ' + combinator + ' ' + selector2.stringify();
+    return selector1;
+  },
+
+  stringify(){
+    let res = this.str;
+    this.str = '';
+    return res;
   }
 };
