@@ -57,10 +57,7 @@ export function getJSON(obj) {
  *
  */
 export function fromJSON(proto, json) {
-  // let obj2 = JSON.parse(json);
-  // let obj1 = new proto.constructor();
-  // return Object.assign(obj1, obj2);
-  throw new Error('Not implemented');
+  return Object.setPrototypeOf(JSON.parse(json), proto);
 }
 
 
