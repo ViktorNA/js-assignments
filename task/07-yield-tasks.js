@@ -185,11 +185,11 @@ export function* mergeSortedSequences(source1, source2) {
   let value1 = q1.next();
   let value2 = q2.next();
   while(!value1.done||!value2.done){
-    if(value1.value > value2.value||value1.value===undefined){
+    if(value1.value > value2.value||value1.done){
       yield value2.value;
       value2 = q2.next();
     }
-    else if(value1.value < value2.value||value2.value===undefined){
+    else if(value1.value < value2.value||value2.done){
       yield value1.value;
       value1 = q1.next();
     }
