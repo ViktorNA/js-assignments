@@ -24,10 +24,12 @@
 export function Rectangle(width, height) {
   this.width = width;
   this.height = height;
-  this.getArea = function(){
-    return this.height * this.width;
-  };
 }
+Rectangle.prototype = {
+  getArea: function () {
+    return this.width * this.height;
+  }
+};
 
 
 /**
@@ -118,57 +120,68 @@ export function fromJSON(proto, json) {
 
 export const cssSelectorBuilder = {
   str: '',
-  crutchForElement: false,
+  order: [],
 
   element(value) {
-    if(this.crutchForElement){
-      throw new Error('Element, id and pseudo-element should not occur more then one time inside the selector');
-    }
-    this.crutchForElement = true;
     this.str+=value;
+    this.checkDoubles(1, this.order);
+    this.checkOrder(1, this.order);
+    this.order.push(1);
     let obj = Object.assign({}, this);
     this.str = '';
+    this.order = [];
     return obj;
   },
 
   id(value) {
-    if(this.str.indexOf('#')>=0){
-      throw new Error('Element, id and pseudo-element should not occur more then one time inside the selector');
-    }
     this.str+='#' + value;
+    this.checkDoubles(2, this.order);
+    this.checkOrder(2, this.order);
+    this.order.push(2);
     let obj = Object.assign({}, this);
     this.str = '';
+    this.order = [];
     return obj;
   },
 
   class(value) {
     this.str+='.' + value;
+    this.checkOrder(3, this.order);
+    this.order.push(3);
     let obj = Object.assign({}, this);
     this.str = '';
+    this.order = [];
     return obj;
   },
 
   attr(value) {
     this.str+='[' + value + ']';
+    this.checkOrder(4, this.order);
+    this.order.push(4);
     let obj = Object.assign({}, this);
     this.str = '';
+    this.order = [];
     return obj;
   },
 
   pseudoClass(value) {
     this.str+=':' + value;
+    this.checkOrder(5, this.order);
+    this.order.push(5);
     let obj = Object.assign({}, this);
     this.str = '';
+    this.order = [];
     return obj;
   },
 
   pseudoElement(value) {
-    if(this.str.indexOf('::')>=0){
-      throw new Error('Element, id and pseudo-element should not occur more then one time inside the selector');
-    }
     this.str+='::' + value;
+    this.checkDoubles(6, this.order);
+    this.checkOrder(6, this.order);
+    this.order.push(6);
     let obj = Object.assign({}, this);
     this.str = '';
+    this.order = [];
     return obj;
   },
 
@@ -181,5 +194,17 @@ export const cssSelectorBuilder = {
     let res = this.str;
     this.str = '';
     return res;
+  },
+
+  checkOrder(index, order){
+    if(index<order[order.length - 1]){
+      throw new Error('Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element');
+    }
+  },
+
+  checkDoubles(index, order){
+    if(order.indexOf(index)>-1){
+      throw new Error('Element, id and pseudo-element should not occur more then one time inside the selector');
+    }
   }
 };
